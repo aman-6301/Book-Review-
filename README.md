@@ -2,7 +2,6 @@
 
 Live Project: [Click Here](https://book-review6.onrender.com/)
 
-
 ## Project Description
 
 This is a full-stack Book Review Application that allows users to discover books, read and write reviews, and see community ratings. The application features user authentication, book management, and a dynamic theme toggle for a personalized user experience.
@@ -88,6 +87,79 @@ npm run dev
 ```
 
 The frontend application will typically open in your browser at `http://localhost:5173` (or another available port).
+
+## API Documentation
+
+### Authentication API
+
+*   **POST /api/auth/signup**
+    *   **Description:** Registers a new user.
+    *   **Request Body:** `{ "name": "string", "email": "string", "password": "string" }`
+    *   **Response:** `{ "token": "string", "user": { "_id": "string", "name": "string", "email": "string" } }`
+
+*   **POST /api/auth/login**
+    *   **Description:** Logs in an existing user.
+    *   **Request Body:** `{ "email": "string", "password": "string" }`
+    *   **Response:** `{ "token": "string", "user": { "_id": "string", "name": "string", "email": "string" } }`
+
+### Books API
+
+*   **POST /api/books**
+    *   **Description:** Adds a new book.
+    *   **Authentication:** Required (JWT in Authorization header).
+    *   **Request Body:** `{ "title": "string", "author": "string", "description": "string", "genre": "string", "year": "number" }`
+    *   **Response:** The created book object.
+
+*   **GET /api/books**
+    *   **Description:** Retrieves a paginated list of books.
+    *   **Query Parameters:**
+        *   `page` (number, optional): The page number for pagination.
+        *   `search` (string, optional): A search term to filter books by title or author.
+        *   `genre` (string, optional): A genre to filter books by.
+        *   `sort` (string, optional): Set to "year" to sort by year.
+    *   **Response:** `{ "books": [...], "page": "number", "totalPages": "number" }`
+
+*   **GET /api/books/:id**
+    *   **Description:** Retrieves a single book by its ID.
+    *   **Response:** The book object.
+
+*   **PUT /api/books/:id**
+    *   **Description:** Updates a book's details.
+    *   **Authentication:** Required (JWT in Authorization header). Only the user who added the book can update it.
+    *   **Request Body:** `{ "title": "string", "author": "string", "description": "string", "genre": "string", "year": "number" }`
+    *   **Response:** The updated book object.
+
+*   **DELETE /api/books/:id**
+    *   **Description:** Deletes a book.
+    *   **Authentication:** Required (JWT in Authorization header). Only the user who added the book can delete it.
+    *   **Response:** `{ "message": "Book removed" }`
+
+### Reviews API
+
+*   **POST /api/reviews/:bookId**
+    *   **Description:** Adds a review to a book.
+    *   **Authentication:** Required (JWT in Authorization header).
+    *   **Request Body:** `{ "rating": "number", "reviewText": "string" }`
+    *   **Response:** The created review object.
+
+*   **PUT /api/reviews/:id**
+    *   **Description:** Updates a review.
+    *   **Authentication:** Required (JWT in Authorization header). Only the user who created the review can update it.
+    *   **Request Body:** `{ "rating": "number", "reviewText": "string" }`
+    *   **Response:** The updated review object.
+
+*   **DELETE /api/reviews/:id**
+    *   **Description:** Deletes a review.
+    *   **Authentication:** Required (JWT in Authorization header). Only the user who created the review can delete it.
+    *   **Response:** `{ "message": "Review removed" }`
+
+*   **GET /api/reviews/book/:bookId**
+    *   **Description:** Retrieves all reviews for a specific book, along with the average rating.
+    *   **Response:** `{ "reviews": [...], "averageRating": "number" }`
+
+*   **GET /api/reviews/book/:bookId/distribution**
+    *   **Description:** Retrieves the rating distribution (1-5 stars) for a specific book.
+    *   **Response:** `{ "distribution": [0, 0, 0, 0, 0] }`
 
 ## Usage
 
