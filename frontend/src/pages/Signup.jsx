@@ -17,7 +17,7 @@ function Signup() {
     setLoading(true);
     setToast(null);
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", { name, email, password });
+      await axios.post("https://book-review-webapp.onrender.com/api/auth/signup", { name, email, password });
       setToast({ message: "Signup successful! Please login.", type: "success" });
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
