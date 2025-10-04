@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer base {
+  html.light {
+    background-color: #ffffff; /* White background for light mode */
+    color: #1a202c; /* Dark text for light mode */
+  }
+  html.dark {
+    background-color: #1a202c; /* Dark background for dark mode */
+    color: #ffffff; /* White text for dark mode */
+  }
+}
