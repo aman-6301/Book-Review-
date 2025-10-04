@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create axios instance
 const api = axios.create({
-  baseURL: "https://book-review-webapp.onrender.com/api",
+  baseURL: "https://book-review5.onrender.com/api",
 });
 
 // Attach token to every request if available
